@@ -1,0 +1,26 @@
+        <h2 class="blog-header">The Tech Blog</h2>
+      </nav>
+    </header>
+<main>
+{{> post-details}}
+<div class="login-card">
+  <div class="login-card-header"></div>
+  <div class="comment-card-form">
+    <form class="comment-form">
+      <div class="form-group">
+        <label for="comment-content">Comment:</label>
+        <textarea
+          class="form-input-content"
+          type="text"
+          id="comment-content"
+          maxlength="1100"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <button id="comment-btn" class="login-btn" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
