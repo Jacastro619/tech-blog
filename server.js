@@ -1,8 +1,17 @@
+const path = require("path");
+const express = require("express");
+const session = require("express-session");
+const exphbs = require("express-handlebars");
+const SequelizeStore = require("connect-session-sequalize")(session.Store);
+
+const routes = require("./controllers");
+const sequalize = require("./config/connection");
+
 // Psuedocode
 
 // create directories within the convention of MVC (Model-View-Control)
 // - controllers, Views, Models folders
-// -server.js
+// - server.js
 // Create Models
 // Create index.js to create relationships of models
 // - User, Posts, Comments (Users <-> Posts/Comments one to many relationships)
