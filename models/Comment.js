@@ -25,7 +25,7 @@ Comment.init(
     user_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: "User",
+        model: "user",
         key: "id",
       },
     },
@@ -38,3 +38,5 @@ Comment.init(
     modelName: "comment",
   }
 );
+
+module.exports = Comment;
