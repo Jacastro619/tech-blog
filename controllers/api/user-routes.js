@@ -19,7 +19,13 @@ router.post("/", async (req, res) => {
       res.status(200).json(dbUserInfo);
     });
   } catch (err) {
-    res.status(500).json(serverErr);
+    if (err.name === "SequelizeUniqueConstraintError") {
+      res.status(422).json({ message: "Username is already in use" });
+    } else if (err.name === "SequelizeValidationError") {
+      res.status(400).json(err);
+    } else {
+      res.status(500).json(err);
+    }
   }
 });
 
@@ -45,6 +51,7 @@ router.post("/login", async (req, res) => {
 
     req.session.save(() => {
       req.session.loggedIn = true;
+      req.session.user_id = dbUserInfo.id;
 
       res.status(200).json(loginSuccess);
     });

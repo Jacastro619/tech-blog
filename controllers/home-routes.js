@@ -4,7 +4,7 @@ const { withAuth, areAuth } = require("../utils/auth");
 
 const serverError = { message: "Internal Server Error" };
 
-router.get("/", async (req, res) => {
+router.get("/", withAuth, async (req, res) => {
   try {
     const dbPostData = await Post.findAll({
       include: [{ model: User, attributes: ["username"] }],
