@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { User } = require("../../models");
+const { areAuth } = require("../../utils/auth");
 
 const serverErr = { message: "Internal Server Error" };
 const loginErr = { message: "Incorrect email or password" };

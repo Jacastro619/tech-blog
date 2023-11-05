@@ -2,5 +2,7 @@
       </nav>
     </header>
 <main>
-    {{> post-details}}
+    {{> one-post-details}}
+    {{#each comment}}
     {{> comment-details}}
+    {{/each}}

@@ -31,16 +31,23 @@ router.get("/post/:id", async (req, res) => {
     });
     const post = dbPostData.get({ plain: true });
 
-    console.log(post);
+    const dbCommentData = await Comment.findAll({
+      where: {
+        post_id: post.id,
+      },
+      include: [{ model: User, attributes: ["username"] }],
+    });
 
-    res.render("view-post", { post, loggedIn: req.session.loggedIn });
+    const comment = dbCommentData.map((comm) => comm.get({ plain: true }));
+
+    res.render("view-post", { post, comment, loggedIn: req.session.loggedIn });
   } catch (err) {
     console.log(err);
     res.status(500).json(serverError);
   }
 });
 
-router.get("/dashboard", async (req, res) => {
+router.get("/dashboard", withAuth, async (req, res) => {
   console.log(req.session);
   try {
     const dbDashData = await Post.findAll({
@@ -74,8 +81,35 @@ router.get("/edit", async (req, res) => {
   res.render("edit-post");
 });
 
-router.get("/comment", async (req, res) => {
+router.get("/comment/:id", withAuth, async (req, res) => {
+  try {
+    const dbPostData = await Post.findByPk(req.params.id, {
+      include: [{ model: User, attributes: ["username"] }],
+    });
+    const post = dbPostData.get({ plain: true });
+
+    const dbCommentData = await Comment.findAll({
+      where: {
+        post_id: post.id,
+      },
+      include: [{ model: User, attributes: ["username"] }],
+    });
+
+    const comment = dbCommentData.map((comm) => comm.get({ plain: true }));
+
+    res.render("comment", { post, comment, loggedIn: req.session.loggedIn });
+  } catch (err) {
+    res.status(500).json(serverError);
+  }
   res.render("comment");
+});
+
+router.post("/comment", async (req, res) => {
+  try {
+    const 
+  } catch (err) {
+    res.status(500).json(serverError);
+  }
 });
 
 module.exports = router;

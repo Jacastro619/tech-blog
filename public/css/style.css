@@ -32,6 +32,12 @@ header {
   margin: 30px;
 }
 
+.nav-links button {
+  background-color: var(--primary-dark);
+  border: none;
+  cursor: pointer;
+}
+
 .blog-header {
   background-color: var(--primary-light);
   font-size: 300%;

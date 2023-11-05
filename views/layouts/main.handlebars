@@ -8,10 +8,13 @@
   <body>
     <header>
       <nav>
-        <div class="nav-links">
-          <h1>Home</h1>
-          <h1>Dashboard</h1>
-          <h1>Logout</h1>
+<div class="nav-links">
+          <a href="/"><h1>Home</h1></a>
+          <a href="/dashboard"><h1>Dashboard</h1></a>
+          {{#if loggedIn}}
+          <button><h1 id="logout">Logout</h1></button>
+          {{/if}}
+          <!-- <a href="#"><h1>Login</h1> -->
         </div>
         {{!-- <h2 class="blog-header">The Tech Blog</h2>
       </nav>
