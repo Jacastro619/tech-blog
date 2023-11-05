@@ -1,0 +1,16 @@
+<div class="post-card">
+  <a href="#">
+    <div class="post-card-header">
+      <h3>{{post.title}}</h3>
+      <h4>Posted by
+        {{post.user.username}}
+        on
+        {{format_date post.createdAt}}</h4>
+    </div>
+  </a>
+  <div class="post-card-body">
+    <p>
+      {{post.description}}
+    </p>
+  </div>
+</div>
