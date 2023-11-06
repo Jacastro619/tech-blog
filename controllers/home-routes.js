@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { Post, Comment, User } = require("../models");
-const { withAuth } = require("../utils/auth");
+const { withAuth, areAuth } = require("../utils/auth");
 
 const serverError = { message: "Internal Server Error" };
 
@@ -66,7 +66,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
   }
 });
 
-router.get("/login", async (req, res) => {
+router.get("/login", areAuth, async (req, res) => {
   res.render("login");
 });
 
