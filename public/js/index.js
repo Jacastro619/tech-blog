@@ -12,18 +12,4 @@ const logoutHandler = async () => {
   }
 };
 
-const commentHandler = async (event) => {
-  event.preventDefault();
-
-  const comment = document.querySelector("#comment-content").value.trim();
-
-  if (!comment) {
-    alert("No comment to post");
-    return;
-  }
-  if (comment) {
-    const response = await fetch("");
-  }
-};
-
 document.querySelector("#logout").addEventListener("click", logoutHandler);

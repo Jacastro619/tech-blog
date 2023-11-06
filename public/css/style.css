@@ -5,6 +5,11 @@
   --secondary-light: lightgray;
 }
 
+input,
+textarea {
+  cursor: auto;
+}
+
 * {
   padding: 0;
   margin: 0;

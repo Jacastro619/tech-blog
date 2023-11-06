@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { Post, Comment, User } = require("../models");
-const { withAuth, areAuth } = require("../utils/auth");
+const { withAuth } = require("../utils/auth");
 
 const serverError = { message: "Internal Server Error" };
 
@@ -12,8 +12,6 @@ router.get("/", withAuth, async (req, res) => {
 
     const posts = dbPostData.map((post) => post.get({ plain: true }));
 
-    console.log(posts);
-
     res.render("homepage", {
       posts,
       loggedIn: req.session.loggedIn,
@@ -24,11 +22,12 @@ router.get("/", withAuth, async (req, res) => {
   }
 });
 
-router.get("/post/:id", async (req, res) => {
+router.get("/post/:id", withAuth, async (req, res) => {
   try {
     const dbPostData = await Post.findByPk(req.params.id, {
       include: [{ model: User, attributes: ["username"] }],
     });
+
     const post = dbPostData.get({ plain: true });
 
     const dbCommentData = await Comment.findAll({
@@ -48,7 +47,6 @@ router.get("/post/:id", async (req, res) => {
 });
 
 router.get("/dashboard", withAuth, async (req, res) => {
-  console.log(req.session);
   try {
     const dbDashData = await Post.findAll({
       where: {
@@ -58,7 +56,6 @@ router.get("/dashboard", withAuth, async (req, res) => {
 
     const posts = dbDashData.map((post) => post.get({ plain: true }));
 
-    console.log(posts);
     res.render("dashboard", {
       posts,
       loggedIn: req.session.loggedIn,
@@ -77,7 +74,40 @@ router.get("/new", async (req, res) => {
   res.render("new-post");
 });
 
-router.get("/edit", async (req, res) => {
+router.post("/new", async (req, res) => {
+  try {
+    const addPost = await Post.create({
+      title: req.body.title,
+      description: req.body.content,
+      user_id: req.session.user_id,
+    });
+    res.status(200).json(addPost);
+  } catch (err) {
+    res.status(500).json(serverError);
+  }
+});
+
+router.put("/edit/:id", async (req, res) => {
+  try {
+    const editPost = await Post.update(
+      {
+        title: req.body.updatedTitle,
+        description: req.body.updatedContent,
+        user_id: req.session.user_id,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+    res.status(200).json(editPost);
+  } catch (err) {
+    res.status(500).json(serverError);
+  }
+});
+
+router.get("/edit/:id", (req, res) => {
   res.render("edit-post");
 });
 
@@ -101,14 +131,18 @@ router.get("/comment/:id", withAuth, async (req, res) => {
   } catch (err) {
     res.status(500).json(serverError);
   }
-  res.render("comment");
 });
 
 router.post("/comment", async (req, res) => {
   try {
-    const 
+    const addComment = await Comment.create({
+      description: req.body.comment,
+      post_id: req.body.postId,
+      user_id: req.session.user_id,
+    });
+    res.status(200).json(addComment);
   } catch (err) {
-    res.status(500).json(serverError);
+    res.status(500).json(err);
   }
 });
 
