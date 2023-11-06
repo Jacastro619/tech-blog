@@ -17,7 +17,7 @@
 
 ## Description
 
-[Visit the deployed site!](#)
+[Visit the deployed site!](https://tech-blog-application619-bb245d34138f.herokuapp.com/)
 
 This is a tech blog, a space where tech enthusiasts can delve into the world of technology. This app is equipped to allow user logins and sign-ups. Users can share their tech experiences through posts and engage in meaningful conversations. Whether the user is contributing their tech stories or commenting on others' posts, this is designed to facilitate discussions. Users also have control over their content, allowing them to update or remove their posts. In essence, this blog serves as the user's go-to destination to explore, connect, and engage.
 
