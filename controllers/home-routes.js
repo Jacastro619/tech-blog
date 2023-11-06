@@ -4,7 +4,7 @@ const { withAuth, areAuth } = require("../utils/auth");
 
 const serverError = { message: "Internal Server Error" };
 
-router.get("/", withAuth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const dbPostData = await Post.findAll({
       include: [{ model: User, attributes: ["username"] }],
@@ -70,11 +70,11 @@ router.get("/login", areAuth, async (req, res) => {
   res.render("login");
 });
 
-router.get("/new", async (req, res) => {
+router.get("/new", withAuth, async (req, res) => {
   res.render("new-post");
 });
 
-router.post("/new", async (req, res) => {
+router.post("/new", withAuth, async (req, res) => {
   try {
     const addPost = await Post.create({
       title: req.body.title,
@@ -87,7 +87,7 @@ router.post("/new", async (req, res) => {
   }
 });
 
-router.put("/edit/:id", async (req, res) => {
+router.put("/edit/:id", withAuth, async (req, res) => {
   try {
     const editPost = await Post.update(
       {
@@ -133,7 +133,7 @@ router.get("/comment/:id", withAuth, async (req, res) => {
   }
 });
 
-router.post("/comment", async (req, res) => {
+router.post("/comment", withAuth, async (req, res) => {
   try {
     const addComment = await Comment.create({
       description: req.body.comment,
