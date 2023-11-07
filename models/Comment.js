@@ -12,8 +12,11 @@ Comment.init(
       autoIncrement: true,
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
+      validate: {
+        len: [0, 1100],
+      },
     },
     post_id: {
       type: DataTypes.INTEGER,
