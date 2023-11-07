@@ -83,7 +83,8 @@ router.post("/new", withAuth, async (req, res) => {
     });
     res.status(200).json(addPost);
   } catch (err) {
-    res.status(500).json(serverError);
+    console.log(err);
+    res.status(500).json(err);
   }
 });
 

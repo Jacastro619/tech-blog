@@ -14,12 +14,15 @@ Post.init(
     title: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        len: [0, 50],
+      },
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        len: [0, 150],
+        len: [0, 1125],
       },
     },
     user_id: {
